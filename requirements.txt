@@ -1,0 +1,8 @@
+botasaurus-driver
+beautifulsoup4
+textblob
+streamlit
+scikit-learn
+tensorflow
+pillow
+requests
