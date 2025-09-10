@@ -21,6 +21,19 @@ def main():
         print(f"Social sentiment score: {sentiment}")
         print(f"Undervalue score: {undervalue_score}")
 
+        if undervalue_score > 100:  # simple threshold
+            from ui.alerts import send_email_alert
+            send_email_alert(
+                subject="🔥 Undervalued Auction Found!",
+                body=f"Auction: {auction['title']}\nPrice: {auction['price']}\nResale: {resale_estimate}\nScore: {undervalue_score}\nLink: {auction['link']}",
+                to_email="you@example.com",
+                from_email="bot@example.com",
+                smtp_server="smtp.example.com",
+                smtp_port=587,
+                username="bot@example.com",
+                password="yourpassword"
+            )
+
 
 if __name__ == "__main__":
     main()
