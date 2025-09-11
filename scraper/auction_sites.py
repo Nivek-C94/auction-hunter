@@ -1,12 +1,13 @@
-from botasaurus import browser, create_stealth_driver
+from botasaurus import browser
 from bs4 import BeautifulSoup
 
 
-@browser(create_driver=create_stealth_driver(start_url="https://www.storagetreasures.com/auctions"))
+@browser
 def scrape_storagetreasures(driver, data):
     """
-    Scrape auctions from StorageTreasures using a stealth driver.
+    Scrape auctions from StorageTreasures using Botasaurus browser decorator.
     """
+    driver.get("https://www.storagetreasures.com/auctions")
     soup = BeautifulSoup(driver.page_source, "html.parser")
 
     auctions = []
@@ -19,7 +20,5 @@ def scrape_storagetreasures(driver, data):
             auctions.append({"title": title, "price": price, "link": link})
         except Exception:
             continue
-
-    return auctions
 
     return auctions
