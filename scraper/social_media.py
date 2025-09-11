@@ -1,6 +1,6 @@
+import time
 from botasaurus_driver import Driver
 from bs4 import BeautifulSoup
-import time
 from textblob import TextBlob
 
 
@@ -11,7 +11,7 @@ def scrape_reddit_sentiment(keyword="storage auction"):
     url = f"https://www.reddit.com/search/?q={keyword.replace(' ', '%20')}"
     sentiments = []
 
-    with Driver(stealth=True, user_agent="desktop") as driver:
+    with Driver() as driver:
         driver.get(url)
         time.sleep(5)
         soup = BeautifulSoup(driver.page_source, "html.parser")
@@ -22,4 +22,4 @@ def scrape_reddit_sentiment(keyword="storage auction"):
             polarity = TextBlob(text).sentiment.polarity
             sentiments.append(polarity)
 
-    return sum(sentiments)/len(sentiments) if sentiments else 0
+    return sum(sentiments) / len(sentiments) if sentiments else 0
